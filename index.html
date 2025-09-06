@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis super Pelis y series</title>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <style>
+    .bg-light {
+      background-color: #fbdcdf!important;
+    }
+    .btn-magic, .btn-filtro {
+      background: linear-gradient(45deg, #ff4081, #ff80ab);
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 5px;
+      box-shadow: 0 4px 12px rgba(255, 64, 129, 0.6);
+      transition: background 0.3s ease;
+    }
+    .btn-magic:hover, .btn-filtro:hover {
+      background: linear-gradient(45deg, #ff80ab, #ff4081);
+    }
+    #resultado {
+      margin-top: 20px;
+      font-family: sans-serif;
+    }
+    img {
+        max-width: 215px;
+        text-align: center;
+        margin: 0px auto;
+    }
+  </style>
+</head>
+<body>
+<section id="billboard" class="bg-light py-5">
+  <div id="listado"></div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <h1 class="section-title text-center mt-4">Mis Super Pelis y Series</h1>
+      <div class="col-md-6 text-center">
+        <p>Que tengas un día genial :)</p>
+      </div>
+    </div>
+
+   <!-- Botones mágicos -->
+    <div class="text-center my-4">
+    🎬 Botones Mágicos de Pelis y Series
+    </div>
+   <div class="text-center my-4">
+     <button class="btn-magic" id="btnPelis">🎬 ¡Sorpréndeme con una Peli!</button>
+     <button class="btn-magic" id="btnSeries">📺 ¡Sorpréndeme con una Serie!</button>
+     <button class="btn-magic" id="btnAmbos">🔀 ¡Sorpréndeme con Pelis + Series!</button>
+   </div>
+ <div class="text-center my-4">
+    Filtrando :)
+    </div>
+   <!-- Botones de filtro -->
+   <div class="text-center mb-4">
+      <button class="btn-filtro" id="filtroPelis">🎬 Solo Pelis</button>
+      <button class="btn-filtro" id="filtroSeries">📺 Solo Series</button>
+      <button class="btn-filtro" id="filtroAmbos">🔀 Pelis + Series</button>
+   </div>
+   
+   <!-- Resultado mágico -->
+   <div id="resultado" class="card" style="display:none; text-align: center;background-color: #f0abb3;padding: 20px;border: 7px dotted;margin: 33px;">
+      <img id="imgPeli" src="" alt="">
+      <h5 class="mt-4" id="tituloPeli"></h5>
+      <p id="descPeli"></p>
+   </div>
+
+    <div class="row" id="links-container">
+      <!-- Aquí se insertarán las tarjetas -->
+    </div>
+  </div>
+</section>
+
+<!-- JSON embebido -->
+
+<script id="enlaces-data" type="application/json">
+{
+  "pelis": {
+    "policiaca": [
+      {
+        "img": "images/pelis/lacenarichardgere.jpeg",
+        "imgAlt": "La cena",
+        "imgFull": "images/pelis/lacenarichardgere.jpeg",
+        "titulo": "La Cena",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/asesinatoenelorientexpress.jpeg",
+        "imgAlt": "Asesinato en el Orient Express",
+        "imgFull": "images/pelis/asesinatoenelorientexpress.jpeg",
+        "titulo": "Asesinato en el Orient Express",
+        "descripcion": "Resumen no disponible."
+      },
+  {
+    "img": "images/pelis/muerteenelniloKennethBranagh.jpeg",
+    "imgAlt": "Muerte en el nilo",
+    "imgFull": "images/pelis/muerteenelniloKennethBranagh.jpeg",
+    "titulo": "Muerte en el nilo",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/angelesydemoniostomhanks.jpeg",
+    "imgAlt": "Angeles y demonios",
+    "imgFull": "images/pelis/angelesydemoniostomhanks.jpeg",
+    "titulo": "Angeles y demonios",
+    "descripcion": "Resumen no disponible."
+  },
+   {
+    "img": "images/pelis/lafirmatomcruise.jpeg",
+    "imgAlt": "La Firma",
+    "imgFull": "images/pelis/lafirmatomcruise.jpeg",
+    "titulo": "La Firma",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/fractureAnthonyHopkins.jpeg",
+    "imgAlt": "Fractura",
+    "imgFull": "images/pelis/fractureAnthonyHopkins.jpeg",
+    "titulo": "Fractura",
+    "descripcion": "Resumen no disponible."
+  },
+   {
+    "img": "images/pelis/eljurado.jpg",
+    "imgAlt": "El Jurado",
+    "imgFull": "images/pelis/eljurado.jpg",
+    "titulo": "El Jurado",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/planPerfecto.jpg",
+    "imgAlt": "Plan Perfecto",
+    "imgFull": "images/pelis/planPerfecto.jpg",
+    "titulo": "Plan Perfecto",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/marginCall.jpg",
+    "imgAlt": "Margin Call",
+    "imgFull": "images/pelis/marginCall.jpg",
+    "titulo": "Margin Call",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/granTorino.jpg",
+    "imgAlt": "Gran Torino",
+    "imgFull": "images/pelis/granTorino.jpg",
+    "titulo": "Gran Torino",
+    "descripcion": "Resumen no disponible."
+  }
+  
+    ],
+    "fin_del_mundo": [
+      {
+        "img": "images/pelis/2012.jpeg",
+        "imgAlt": "2012",
+        "imgFull": "images/pelis/2012.jpeg",
+        "titulo": "2012",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/10cloverfieldlane.jpeg",
+        "imgAlt": "10 cloverfieldlane",
+        "imgFull": "images/pelis/10cloverfieldlane.jpeg",
+        "titulo": "10 Cloverfieldlane",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/monstruoso.jpeg",
+        "imgAlt": "Monstruoso",
+        "imgFull": "images/pelis/monstruoso.jpeg",
+        "titulo": "Monstruoso",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/eldiadespuesdelmañana.jpeg",
+        "imgAlt": "El día después del mañana",
+        "imgFull": "images/pelis/eldiadespuesdelmañana.jpeg",
+        "titulo": "El día después del mañana",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/paniconuclearbenaffleck.jpeg",
+        "imgAlt": "Pánico Nuclear",
+        "imgFull": "images/pelis/paniconuclearbenaffleck.jpeg",
+        "titulo": "Pánico Nuclear",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+    "img": "images/pelis/contagiojudelaw.jpeg",
+    "imgAlt": "Contagio",
+    "imgFull": "images/pelis/contagiojudelaw.jpeg",
+    "titulo": "Contagio",
+    "descripcion": "Resumen no disponible."
+  },
+   {
+    "img": "images/pelis/geostorm.jpg",
+    "imgAlt": "Geostorm",
+    "imgFull": "images/pelis/geostorm.jpg",
+    "titulo": "Geostorm",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/laguerradelosmundostomcruise.jpeg",
+    "imgAlt": "La Guerra de los Mundos",
+    "imgFull": "images/pelis/laguerradelosmundostomcruise.jpeg",
+    "titulo": "La Guerra de los Mundos",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/Greenland.jpeg",
+    "imgAlt": "Greenland",
+    "imgFull": "images/pelis/Greenland.jpeg",
+    "titulo": "Greenland",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/jungladecristal40.jpg",
+    "imgAlt": "Junga de Cristal 4.0",
+    "imgFull": "images/pelis/jungladecristal40.jpg",
+    "titulo": "Junga de Cristal 4.0",
+    "descripcion": "Resumen no disponible."
+  }
+  
+    ],
+    "Bíblicas": [
+    {
+    "img": "images/pelis/las10mandamientos.jpeg",
+    "imgAlt": "Las 10 mandamientos",
+    "imgFull": "images/pelis/las10mandamientos.jpeg",
+    "titulo": "Las 10 Mandamientos",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/noe.jpeg",
+    "imgAlt": "Noe",
+    "imgFull": "images/pelis/noe.jpeg",
+    "titulo": "Noe",
+    "descripcion": "Resumen no disponible."
+  }, {
+    "img": "images/pelis/exodo.jpeg",
+    "imgAlt": "Exodo",
+    "imgFull": "images/pelis/exodo.jpeg",
+    "titulo": "Exodo",
+    "descripcion": "Resumen no disponible."
+  }
+    ],
+    "accion": [
+     {
+    "img": "images/pelis/labusqueda2.jpeg",
+    "imgAlt": "Labusqueda2",
+    "imgFull": "images/pelis/labusqueda2.jpeg",
+    "titulo": "Labusqueda2",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/labusqueda.jpeg",
+    "imgAlt": "Labusqueda",
+    "imgFull": "images/pelis/labusqueda.jpeg",
+    "titulo": "Labusqueda",
+    "descripcion": "Resumen no disponible."
+  },
+     
+        {
+            "img": "images/pelis/sherlokholmes2.jpeg",
+            "imgAlt": "Sherlok Holmes 2",
+            "imgFull": "images/pelis/sherlokholmes2.jpeg",
+            "titulo": "Sherlok Holmes 2",
+            "descripcion": "Resumen no disponible."
+        },
+        {
+            "img": "images/pelis/sherlokholmes1.jpeg",
+            "imgAlt": "Sherlok Holmes 1",
+            "imgFull": "images/pelis/sherlokholmes1.jpeg",
+            "titulo": "Sherlok Holmes 1",
+            "descripcion": "Resumen no disponible."
+        },
+  {
+    "img": "images/pelis/hunterkillerGerardButler.jpeg",
+    "imgAlt": "Hunter killer",
+    "imgFull": "images/pelis/hunterkillerGerardButler.jpeg",
+    "titulo": "Hunter killer",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/equalizer3.jpeg",
+    "imgAlt": "Equalizer 3",
+    "imgFull": "images/pelis/equalizer3.jpeg",
+    "titulo": "Equalizer 3",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/equalizer2.jpeg",
+    "imgAlt": "Equalizer 2",
+    "imgFull": "images/pelis/equalizer2.jpeg",
+    "titulo": "Equalizer 2",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/equalizer1.jpeg",
+    "imgAlt": "Equalizer 1",
+    "imgFull": "images/pelis/equalizer1.jpeg",
+    "titulo": "Equalizer 1",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/americangangster.jpeg",
+    "imgAlt": "American Gangster",
+    "imgFull": "images/pelis/americangangster.jpeg",
+    "titulo": "American Gangster",
+    "descripcion": "Resumen no disponible."
+  },
+  
+  {
+    "img": "images/pelis/mercenarios4.jpeg",
+    "imgAlt": "Mercenarios 4",
+    "imgFull": "images/pelis/mercenarios4.jpeg",
+    "titulo": "Mercenarios 4",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/Unknown.jpeg",
+    "imgAlt": "Mercenarios 3",
+    "imgFull": "images/pelis/mercenarios3.jpeg",
+    "titulo": "Mercenarios 3",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/mercenarios2.jpeg",
+    "imgAlt": "Mercenarios 2",
+    "imgFull": "images/pelis/mercenarios2.jpeg",
+    "titulo": "Mercenarios 2",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/mercenarios1.jpeg",
+    "imgAlt": "Mercenarios 1",
+    "imgFull": "images/pelis/mercenarios1.jpeg",
+    "titulo": "Mercenarios 1",
+    "descripcion": "Resumen no disponible."
+  },
+   {
+    "img": "images/pelis/venganza3.jpeg",
+    "imgAlt": "Venganza 3",
+    "imgFull": "images/pelis/venganza3.jpeg",
+    "titulo": "Venganza 3",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/venganza2.jpeg",
+    "imgAlt": "Venganza 2",
+    "imgFull": "images/pelis/venganza2.jpeg",
+    "titulo": "Venganza 2",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/venganza1.jpeg",
+    "imgAlt": "Venganza 1",
+    "imgFull": "images/pelis/venganza1.jpeg",
+    "titulo": "Venganza 1",
+    "descripcion": "Resumen no disponible."
+  },
+   {
+    "img": "images/pelis/objetivoLaCasaBlanca.jpg",
+    "imgAlt": "Objetivo la Casa Blanca",
+    "imgFull": "images/pelis/objetivoLaCasaBlanca.jpg",
+    "titulo": "Objetivo la Casa Blanca",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/objetivowashington.webp",
+    "imgAlt": "Objetivo la Casa Blanca",
+    "imgFull": "images/pelis/objetivowashington.webp",
+    "titulo": "Objetivo la Casa Blanca",
+    "descripcion": "Resumen no disponible."
+  }  
+    ],
+    "II_Guerra_Mundial": [
+ {
+    "img": "images/pelis/laSolucionFinal.jpeg",
+    "imgAlt": "La Solucion Final",
+    "imgFull": "images/pelis/laSolucionFinal.jpeg",
+    "titulo": "La Solucion Final",
+    "descripcion": "Resumen no disponible."
+  },
+   {
+    "img": "images/pelis/valkiriatomcruise.jpeg",
+    "imgAlt": "Valkiria",
+    "imgFull": "images/pelis/valkiriatomcruise.jpeg",
+    "titulo": "Valkiria",
+    "descripcion": "Resumen no disponible."
+  },
+   {
+        "img": "images/pelis/malditosbastardos.jpeg",
+        "imgAlt": "Malditos Bastardos",
+        "imgFull": "images/pelis/malditosbastardos.jpeg",
+        "titulo": "Malditos Bastardos",
+        "descripcion": "Resumen no disponible."
+      }
+
+],
+    "marvel": [
+      {
+        "img": "images/pelis/ironman3.jpeg",
+        "imgAlt": "Ironman3",
+        "imgFull": "images/pelis/ironman3.jpeg",
+        "titulo": "Ironman3",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/ironman2.jpeg",
+        "imgAlt": "Ironman2",
+        "imgFull": "images/pelis/ironman2.jpeg",
+        "titulo": "Ironman2",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/ironman1.jpeg",
+        "imgAlt": "Ironman1",
+        "imgFull": "images/pelis/ironman1.jpeg",
+        "titulo": "Ironman1",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/panteranegramarvel.jpeg",
+        "imgAlt": "Black Panter",
+        "imgFull": "images/pelis/panteranegramarvel.jpeg",
+        "titulo": "Black Panter",
+        "descripcion": "Resumen no disponible."
+      },
+        {
+    "img": "images/pelis/thor3.jpeg",
+    "imgAlt": "Thor 3",
+    "imgFull": "images/pelis/thor3.jpeg",
+    "titulo": "Thor 3",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/thor2.jpeg",
+    "imgAlt": "Thor 2",
+    "imgFull": "images/pelis/thor2.jpeg",
+    "titulo": "Thor 2",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/thor1.jpeg",
+    "imgAlt": "Thor 1",
+    "imgFull": "images/pelis/thor1.jpeg",
+    "titulo": "Thor 1",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/capitanamerica3civilwar.jpeg",
+    "imgAlt": "Capitanamerica 3 civilwar",
+    "imgFull": "images/pelis/capitanamerica3civilwar.jpeg",
+    "titulo": "Capitanamerica 3 Civilwar",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/capitanamerica2.jpeg",
+    "imgAlt": "Capitanamerica 2",
+    "imgFull": "images/pelis/capitanamerica2.jpeg",
+    "titulo": "Capitanamerica 2",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/capitanamerica1.jpeg",
+    "imgAlt": "Capitanamerica 1",
+    "imgFull": "images/pelis/capitanamerica1.jpeg",
+    "titulo": "Capitanamerica 1",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/lasvengadores4.jpeg",
+    "imgAlt": "Los Vengadores 4",
+    "imgFull": "images/pelis/lasvengadores4.jpeg",
+    "titulo": "Los Vengadores 4",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/lasvengadores3.jpeg",
+    "imgAlt": "Los Vengadores 3",
+    "imgFull": "images/pelis/lasvengadores3.jpeg",
+    "titulo": "Los Vengadores 3",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/lasvengadores2.jpeg",
+    "imgAlt": "Los Vengadores 2",
+    "imgFull": "images/pelis/lasvengadores2.jpeg",
+    "titulo": "Los Vengadores 2",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/lasvengadores1.jpeg",
+    "imgAlt": "Los Vengadores 1",
+    "imgFull": "images/pelis/lasvengadores1.jpeg",
+    "titulo": "Los Vengadores 1",
+    "descripcion": "Resumen no disponible."
+  }
+    ],
+    "star_wars": [
+     {
+    "img": "images/pelis/rogeone.jpeg",
+    "imgAlt": "Rogeone",
+    "imgFull": "images/pelis/rogeone.jpeg",
+    "titulo": "Rogeone",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/starwars6.jpeg",
+    "imgAlt": "Starwars 6",
+    "imgFull": "images/pelis/starwars6.jpeg",
+    "titulo": "Starwars 6",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/starwars5.jpeg",
+    "imgAlt": "Starwars 5",
+    "imgFull": "images/pelis/starwars5.jpeg",
+    "titulo": "Starwars 5",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/starwars4.jpeg",
+    "imgAlt": "Starwars 4",
+    "imgFull": "images/pelis/starwars4.jpeg",
+    "titulo": "Starwars 4",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/starwars3.jpeg",
+    "imgAlt": "Starwars 3",
+    "imgFull": "images/pelis/starwars3.jpeg",
+    "titulo": "Starwars 3",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/starwars2.jpeg",
+    "imgAlt": "Starwars 2",
+    "imgFull": "images/pelis/starwars2.jpeg",
+    "titulo": "Starwars 2",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/starwars1.jpeg",
+    "imgAlt": "Starwars 1",
+    "imgFull": "images/pelis/starwars1.jpeg",
+    "titulo": "Starwars 1",
+    "descripcion": "Resumen no disponible."
+  }
+    ],
+    "tolkien": [
+    {
+    "img": "images/pelis/ESA3.jpeg",
+    "imgAlt": "El Señor de los Anillos 3",
+    "imgFull": "images/pelis/ESA3.jpeg",
+    "titulo": "El Señor de los Anillos 3",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/ESA2.jpeg",
+    "imgAlt": "El Señor de los Anillos 2",
+    "imgFull": "images/pelis/ESA2.jpeg",
+    "titulo": "El Señor de los Anillos 2",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/ESA1.jpeg",
+    "imgAlt": "El Señor de los Anillos 1",
+    "imgFull": "images/pelis/ESA1.jpeg",
+    "titulo": "El Señor de los Anillos 1",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/hobbit3.jpeg",
+    "imgAlt": "Hobbit3",
+    "imgFull": "images/pelis/hobbit3.jpeg",
+    "titulo": "Hobbit3",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/hobbit2.jpeg",
+    "imgAlt": "Hobbit2",
+    "imgFull": "images/pelis/hobbit2.jpeg",
+    "titulo": "Hobbit2",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/hobbit1.jpeg",
+    "imgAlt": "Hobbit1",
+    "imgFull": "images/pelis/hobbit1.jpeg",
+    "titulo": "Hobbit1",
+    "descripcion": "Resumen no disponible."
+  }
+    
+    ],
+    "disney": [
+    {
+    "img": "images/pelis/monstruosUniversity.jpeg",
+    "imgAlt": "Monstruos University",
+    "imgFull": "images/pelis/monstruosUniversity.jpeg",
+    "titulo": "Monstruos University",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/mulan.jpeg",
+    "imgAlt": "Mulán",
+    "imgFull": "images/pelis/mulan.jpeg",
+    "titulo": "Mulán",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/aladin.jpeg",
+    "imgAlt": "Aladín",
+    "imgFull": "images/pelis/aladin.jpeg",
+    "titulo": "Aladín",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/labellaylabestia.jpeg",
+    "imgAlt": "La Bella y la Bestia",
+    "imgFull": "images/pelis/labellaylabestia.jpeg",
+    "titulo": "La Bella y la Bestia",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/ratatouille.jpeg",
+    "imgAlt": "Ratatouille",
+    "imgFull": "images/pelis/ratatouille.jpeg",
+    "titulo": "Ratatouille",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/Zootropolis.jpeg",
+    "imgAlt": "Zootrópolis",
+    "imgFull": "images/pelis/Zootropolis.jpeg",
+    "titulo": "Zootrópolis",
+    "descripcion": "Resumen no disponible."
+  },
+   {
+    "img": "images/pelis/principePersia.jpeg",
+    "imgAlt": "Príncipe de Persia",
+    "imgFull": "images/pelis/principePersia.jpeg",
+    "titulo": "Príncipe de Persia",
+    "descripcion": "Resumen no disponible."
+  }
+  
+    ],
+    "Harry Potter": [
+     {
+    "img": "images/pelis/harry7.jpeg",
+    "imgAlt": "Harry 7",
+    "imgFull": "images/pelis/harry7.jpeg",
+    "titulo": "Harry 7",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/harry6.jpeg",
+    "imgAlt": "Harry 6",
+    "imgFull": "images/pelis/harry6.jpeg",
+    "titulo": "Harry 6",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/harry5.jpeg",
+    "imgAlt": "Harry 5",
+    "imgFull": "images/pelis/harry5.jpeg",
+    "titulo": "Harry 5",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/harry4.jpeg",
+    "imgAlt": "Harry 4",
+    "imgFull": "images/pelis/harry4.jpeg",
+    "titulo": "Harry 4",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/harry3.jpeg",
+    "imgAlt": "Harry 3",
+    "imgFull": "images/pelis/harry3.jpeg",
+    "titulo": "Harry 3",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/harry2.jpeg",
+    "imgAlt": "Harry 2",
+    "imgFull": "images/pelis/harry2.jpeg",
+    "titulo": "Harry 2",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/harry1.jpeg",
+    "imgAlt": "Harry 1",
+    "imgFull": "images/pelis/harry1.jpeg",
+    "titulo": "Harry 1",
+    "descripcion": "Resumen no disponible."
+  }
+    ],
+    "indiana_jones": [
+      {
+        "img": "images/pelis/indiIndianaJonesyeldialdeldestino.jpeg",
+        "imgAlt": "El dial del destino (2023)",
+        "imgFull": "images/pelis/indiIndianaJonesyeldialdeldestino.jpeg",
+        "titulo": "El dial del destino (2023)",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/indindianaJonesyelreinodelacalaveradecristal.jpeg",
+        "imgAlt": "El reino de la calavera de cristal (2008)",
+        "imgFull": "images/pelis/indindianaJonesyelreinodelacalaveradecristal.jpeg",
+        "titulo": "El reino de la calavera de cristal (2008)",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/indiIndianaJonesylaúltimacruzada.jpeg",
+        "imgAlt": "La última cruzada (1989)",
+        "imgFull": "images/pelis/indiIndianaJonesylaúltimacruzada.jpeg",
+        "titulo": "La última cruzada (1989)",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/indiIndianaJonesyeltemplomaldito.jpeg",
+        "imgAlt": "El templo maldito (1984)",
+        "imgFull": "images/pelis/indiIndianaJonesyeltemplomaldito.jpeg",
+        "titulo": "El templo maldito (1984)",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/indiEnbuscadelarcaperdida.jpeg",
+        "imgAlt": "En busca del arca perdida (1981)",
+        "imgFull": "images/pelis/indiEnbuscadelarcaperdida.jpeg",
+        "titulo": "En busca del arca perdida (1981)",
+        "descripcion": "Resumen no disponible."
+      }
+    ],
+    "El_Padrino": [
+    {
+        "img": "images/pelis/elpadrino.jpg",
+        "imgAlt": "El Padrino 1",
+        "imgFull": "images/pelis/elpadrino.jpg",
+        "titulo": "El Padrino 1",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/elpadrino2.jpg",
+        "imgAlt": "El Padrino 2",
+        "imgFull": "images/pelis/elpadrino2.jpg",
+        "titulo": "El Padrino 2",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/elpadrino3.jpg",
+        "imgAlt": "El Padrino 3",
+        "imgFull": "images/pelis/elpadrino3.jpg",
+        "titulo": "El Padrino 3",
+        "descripcion": "Resumen no disponible."
+      }
+    ],
+    "universo_dc": [
+      {
+        "img": "images/pelis/laligadelajuticia.jpeg",
+        "imgAlt": "La liga de la justicia",
+        "imgFull": "images/pelis/laligadelajuticia.jpeg",
+        "titulo": "La liga de la justicia",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/batmanvssuperman.jpeg",
+        "imgAlt": "Batman vs Superman",
+        "imgFull": "images/pelis/batmanvssuperman.jpeg",
+        "titulo": "Batman vs Superman",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/batman1989.png",
+        "imgAlt": "Batman 1989",
+        "imgFull": "images/pelis/batman1989.png",
+        "titulo": "Batman 1989",
+        "descripcion": "Resumen no disponible."
+      }
+      
+    ],
+    "007": [
+      {
+    "img": "images/pelis/007Sintiempoparamorir.jpeg",
+    "imgAlt": "007 Sintiempo para morir",
+    "imgFull": "images/pelis/007Sintiempoparamorir.jpeg",
+    "titulo": "007 Sintiempo para morir",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/007Spectre.jpeg",
+    "imgAlt": "007 spectre",
+    "imgFull": "images/pelis/007Spectre.jpeg",
+    "titulo": "007 Spectre",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/007Skyfall.jpeg",
+    "imgAlt": "007 skyfall",
+    "imgFull": "images/pelis/007Skyfall.jpeg",
+    "titulo": "007 Skyfall",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/007QuantumofSolace.jpeg",
+    "imgAlt": "007 quantum of solace",
+    "imgFull": "images/pelis/007QuantumofSolace.jpeg",
+    "titulo": "007 Quantum of solace",
+    "descripcion": "Resumen no disponible."
+  }
+  ],
+    "mision_imposible": [
+    {
+    "img": "images/pelis/MI8.jpeg",
+    "imgAlt": "Mi 8",
+    "imgFull": "images/pelis/MI8.jpeg",
+    "titulo": "Mi 8",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/MI7.jpeg",
+    "imgAlt": "Mi 7",
+    "imgFull": "images/pelis/MI7.jpeg",
+    "titulo": "Mi 7",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/MI5.jpeg",
+    "imgAlt": "Mi 5",
+    "imgFull": "images/pelis/MI5.jpeg",
+    "titulo": "Mi 5",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/MI4.jpeg",
+    "imgAlt": "Mi 4",
+    "imgFull": "images/pelis/MI4.jpeg",
+    "titulo": "Mi 4",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/MI3.jpeg",
+    "imgAlt": "Mi 3",
+    "imgFull": "images/pelis/MI3.jpeg",
+    "titulo": "Mi 3",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/MI2.jpeg",
+    "imgAlt": "Mi 2",
+    "imgFull": "images/pelis/MI2.jpeg",
+    "titulo": "Mi 2",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/MI1.jpeg",
+    "imgAlt": "Mi 1",
+    "imgFull": "images/pelis/MI1.jpeg",
+    "titulo": "Mi 1",
+    "descripcion": "Resumen no disponible."
+  }
+    
+    ],
+    "Bourne": [
+    {
+    "img": "images/pelis/bourne5.jpeg",
+    "imgAlt": "Bourne 5",
+    "imgFull": "images/pelis/bourne5.jpeg",
+    "titulo": "Bourne 5",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/bourne4.jpeg",
+    "imgAlt": "Bourne 4",
+    "imgFull": "images/pelis/bourne4.jpeg",
+    "titulo": "Bourne 4",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/bourne3.jpeg",
+    "imgAlt": "Bourne 3",
+    "imgFull": "images/pelis/bourne3.jpeg",
+    "titulo": "Bourne 3",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/bourne2.jpeg",
+    "imgAlt": "Bourne 2",
+    "imgFull": "images/pelis/bourne2.jpeg",
+    "titulo": "Bourne 2",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/casobourne1.jpeg",
+    "imgAlt": "Caso bourne 1",
+    "imgFull": "images/pelis/casobourne1.jpeg",
+    "titulo": "Caso bourne 1",
+    "descripcion": "Resumen no disponible."
+  }
+    ],
+    "parque_jurasico": [
+    {
+    "img": "images/pelis/jurasicWorldRenacer.jpg",
+    "imgAlt": "Parque Jurásico El Renacer",
+    "imgFull": "images/pelis/jurasicWorldRenacer.jpg",
+    "titulo": "Parque Jurásico El Renacer",
+    "descripcion": "Resumen no disponible."
+  },
+    {
+    "img": "images/pelis/jurasico5.jpeg",
+    "imgAlt": "Parque Jurásico 5",
+    "imgFull": "images/pelis/jurasico5.jpeg",
+    "titulo": "Parque Jurásico 5",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/jurasico4.jpeg",
+    "imgAlt": "Parque Jurásico 4",
+    "imgFull": "images/pelis/jurasico4.jpeg",
+    "titulo": "Parque Jurásico 4",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/jurasico3.jpeg",
+    "imgAlt": "Parque Jurásico 3",
+    "imgFull": "images/pelis/jurasico3.jpeg",
+    "titulo": "Parque Jurásico 3",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/jurasico2.jpeg",
+    "imgAlt": "Parque Jurásico 2",
+    "imgFull": "images/pelis/jurasico2.jpeg",
+    "titulo": "Parque Jurásico 2",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/jurasico1.jpeg",
+    "imgAlt": "Parque Jurásico 1",
+    "imgFull": "images/pelis/jurasico1.jpeg",
+    "titulo": "Parque Jurásico 1",
+    "descripcion": "Resumen no disponible."
+  }
+    
+    ],
+    "Crepusculo": [
+     {
+    "img": "images/pelis/crepusculo5.jpeg",
+    "imgAlt": "Crepusculo 5",
+    "imgFull": "images/pelis/crepusculo5.jpeg",
+    "titulo": "Crepusculo 5",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/crepusculo4.jpeg",
+    "imgAlt": "Crepusculo 4",
+    "imgFull": "images/pelis/crepusculo4.jpeg",
+    "titulo": "Crepusculo 4",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/crepusculo3.jpeg",
+    "imgAlt": "Crepusculo 3",
+    "imgFull": "images/pelis/crepusculo3.jpeg",
+    "titulo": "Crepusculo 3",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/crepusculo2.jpeg",
+    "imgAlt": "Crepusculo 2",
+    "imgFull": "images/pelis/crepusculo2.jpeg",
+    "titulo": "Crepusculo 2",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/crepusculo1.jpeg",
+    "imgAlt": "Crepusculo 1",
+    "imgFull": "images/pelis/crepusculo1.jpeg",
+    "titulo": "Crepusculo 1",
+    "descripcion": "Resumen no disponible."
+  }
+    ],
+    "oceans": [
+      {
+            "img": "images/pelis/oceans8.jpeg",
+            "imgAlt": "Oceans 8",
+            "imgFull": "images/pelis/oceans8.jpeg",
+            "titulo": "Oceans 8",
+            "descripcion": "Resumen no disponible."
+      },
+      {
+            "img": "images/pelis/oceansthirteen.jpeg",
+            "imgAlt": "Oceans Thirteen",
+            "imgFull": "images/pelis/oceansthirteen.jpeg",
+            "titulo": "Oceans Thirteen",
+            "descripcion": "Resumen no disponible."
+      },
+      {
+            "img": "images/pelis/oceanstwelve.jpeg",
+            "imgAlt": "Oceans Twelve",
+            "imgFull": "images/pelis/oceanstwelve.jpeg",
+            "titulo": "Oceans Twelve",
+            "descripcion": "Resumen no disponible."
+      },
+      {
+            "img": "images/pelis/oceanseleven.jpeg",
+            "imgAlt": "Oceans Eleven",
+            "imgFull": "images/pelis/oceanseleven.jpeg",
+            "titulo": "Oceans Eleven",
+            "descripcion": "Resumen no disponible."
+      }
+    ],
+    "fantasia": [
+    
+{
+    "img": "images/pelis/laJovenDelAgua.jpg",
+    "imgAlt": "La Joven del Agua",
+    "imgFull": "images/pelis/laJovenDelAgua.jpg",
+    "titulo": "La Joven del Agua",
+    "descripcion": "Resumen no disponible."
+  },
+{
+    "img": "images/pelis/lamomia1.jpeg",
+    "imgAlt": "La Momia 1",
+    "imgFull": "images/pelis/lamomia1.jpeg",
+    "titulo": "Lamomia1",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/lamomia2.jpeg",
+    "imgAlt": "La Momia 2",
+    "imgFull": "images/pelis/lamomia2.jpeg",
+    "titulo": "Lamomia2",
+    "descripcion": "Resumen no disponible."
+  },
+  
+      {
+        "img": "images/pelis/practicamentemagia.jpeg",
+        "imgAlt": "Prácticamente Magia",
+        "imgFull": "images/pelis/practicamentemagia.jpeg",
+        "titulo": "Prácticamente Magia",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+    "img": "images/pelis/troya.jpeg",
+    "imgAlt": "Troya",
+    "imgFull": "images/pelis/troya.jpeg",
+    "titulo": "Troya",
+    "descripcion": "Resumen no disponible."
+  },
+      {
+    "img": "images/pelis/3002.jpeg",
+    "imgAlt": "300 Origen",
+    "imgFull": "images/pelis/3002.jpeg",
+    "titulo": "300 Origen",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/300.jpeg",
+    "imgAlt": "300",
+    "imgFull": "images/pelis/300.jpeg",
+    "titulo": "300",
+    "descripcion": "Resumen no disponible."
+  },
+{
+    "img": "images/pelis/diosesdeegipto.jpeg",
+    "imgAlt": "Dioses de Egipto",
+    "imgFull": "images/pelis/diosesdeegipto.jpeg",
+    "titulo": "Dioses de Egipto",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/gladiator.jpg",
+    "imgAlt": "Gladiator",
+    "imgFull": "images/pelis/gladiator.jpg",
+    "titulo": "Gladiator",
+    "descripcion": "Resumen no disponible."
+  },
+ 
+      {
+        "img": "images/pelis/piratasdelcaribe5.jpeg",
+        "imgAlt": "Piratas del Caribe 5",
+        "imgFull": "images/pelis/piratasdelcaribe5.jpeg",
+        "titulo": "Piratas del Caribe 5",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/piratasdelcaribe4.jpeg",
+        "imgAlt": "Piratas del Caribe 4",
+        "imgFull": "images/pelis/piratasdelcaribe4.jpeg",
+        "titulo": "Piratas del Caribe 4",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/piratasdelcaribe3.jpeg",
+        "imgAlt": "Piratas del Caribe 3",
+        "imgFull": "images/pelis/piratasdelcaribe3.jpeg",
+        "titulo": "Piratas del Caribe 3",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/piratasdelcaribe2.jpeg",
+        "imgAlt": "Piratas del Caribe 2",
+        "imgFull": "images/pelis/piratasdelcaribe2.jpeg",
+        "titulo": "Piratas del Caribe 2",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+        "img": "images/pelis/piratasdelcaribe1.jpeg",
+        "imgAlt": "Piratas del Caribe 1",
+        "imgFull": "images/pelis/piratasdelcaribe1.jpeg",
+        "titulo": "Piratas del Caribe 1",
+        "descripcion": "Resumen no disponible."
+      },
+      {
+    "img": "images/pelis/lamomiaTomCruise.jpeg",
+    "imgAlt": "La Momia (Tom Cruise)",
+    "imgFull": "images/pelis/lamomiaTomCruise.jpeg",
+    "titulo": "La Momia (Tom Cruise)",
+    "descripcion": "Resumen no disponible."
+  }
+    ],
+    "comedia": [
+    
+   {
+    "img": "images/pelis/nocheDeJuegos.jpg",
+    "imgAlt": "Noche de Juegos",
+    "imgFull": "images/pelis/nocheDeJuegos.jpg",
+    "titulo": "Noche de Juegos",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/Shrek.jpg",
+    "imgAlt": "Shrek",
+    "imgFull": "images/pelis/Shrek.jpg",
+    "titulo": "Shrek",
+    "descripcion": "Resumen no disponible."
+  },
+   {
+    "img": "images/pelis/Shrek2.jpg",
+    "imgAlt": "Shrek2",
+    "imgFull": "images/pelis/Shrek2.jpg",
+    "titulo": "Shrek 2",
+    "descripcion": "Resumen no disponible."
+  },
+   {
+    "img": "images/pelis/Shrek3.jpg",
+    "imgAlt": "Shrek3",
+    "imgFull": "images/pelis/Shrek3.jpg",
+    "titulo": "Shrek 3",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/Shrek4.jpg",
+    "imgAlt": "Shrek4",
+    "imgFull": "images/pelis/Shrek4.jpg",
+    "titulo": "Shrek 4",
+    "descripcion": "Resumen no disponible."
+  },
+   {
+    "img": "images/pelis/lalegopelicula.jpg",
+    "imgAlt": "La lego Película",
+    "imgFull": "images/pelis/lalegopelicula.jpg",
+    "titulo": "La lego Película",
+    "descripcion": "Resumen no disponible."
+  }
+  
+    ]
+  },
+  "series": [
+  {
+      "img": "images/pelis/lossimpson.jpeg",
+      "imgAlt": "Los Simpson",
+      "imgFull": "images/pelis/lossimpson.jpeg",
+      "titulo": "Los Simpson",
+      "descripcion": "Resumen no disponible."
+    },
+  {
+    "img": "images/pelis/thebigbangtheory.jpeg",
+    "imgAlt": "The Big Bang Theory",
+    "imgFull": "images/pelis/thebigbangtheory.jpeg",
+    "titulo": "The Big Bang Theory",
+    "descripcion": "Resumen no disponible."
+  },
+   {
+    "img": "images/pelis/homeland.jpeg",
+    "imgAlt": "Homeland",
+    "imgFull": "images/pelis/homeland.jpeg",
+    "titulo": "Homeland",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/friends.jpeg",
+    "imgAlt": "Friends",
+    "imgFull": "images/pelis/friends.jpeg",
+    "titulo": "Friends",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/chicasGilmore.jpeg",
+    "imgAlt": "Chicas Gilmore",
+    "imgFull": "images/pelis/chicasGilmore.jpeg",
+    "titulo": "Chicas Gilmore",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/modernFamily.jpeg",
+    "imgAlt": "Modern family",
+    "imgFull": "images/pelis/modernFamily.jpeg",
+    "titulo": "Modern family",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/elmentalista.jpeg",
+    "imgAlt": "El mentalista",
+    "imgFull": "images/pelis/elmentalista.jpeg",
+    "titulo": "El mentalista",
+    "descripcion": "Resumen no disponible."
+  },
+   {
+    "img": "images/pelis/thelastship.jpeg",
+    "imgAlt": "The last ship",
+    "imgFull": "images/pelis/thelastship.jpeg",
+    "titulo": "The last ship",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/24.jpeg",
+    "imgAlt": "24",
+    "imgFull": "images/pelis/24.jpeg",
+    "titulo": "24",
+    "descripcion": "Resumen no disponible."
+  },
+    {
+      "img": "images/pelis/dopesick.jpeg",
+      "imgAlt": "Dopesick",
+      "imgFull": "images/pelis/dopesick.jpeg",
+      "titulo": "Dopesick",
+      "descripcion": "Resumen no disponible."
+    },
+    {
+      "img": "images/pelis/houseofcards.jpeg",
+      "imgAlt": "House of Cards",
+      "imgFull": "images/pelis/houseofcards.jpeg",
+      "titulo": "House of Cards",
+      "descripcion": "Resumen no disponible."
+    },
+   {
+    "img": "images/pelis/residentserie.jpeg",
+    "imgAlt": "Resident",
+    "imgFull": "images/pelis/residentserie.jpeg",
+    "titulo": "Resident",
+    "descripcion": "Resumen no disponible."
+  },
+    {
+    "img": "images/pelis/thebluebloods.jpeg",
+    "imgAlt": "The blue bloods",
+    "imgFull": "images/pelis/thebluebloods.jpeg",
+    "titulo": "The blue bloods",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/sehaescritouncrimen.jpeg",
+    "imgAlt": "Se ha escrito un crimen",
+    "imgFull": "images/pelis/sehaescritouncrimen.jpeg",
+    "titulo": "Se ha escrito un crimen",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/batman1966.jpg",
+    "imgAlt": "Batman 1966",
+    "imgFull": "images/pelis/batman1966.jpg",
+    "titulo": "Batman 1966",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/thehouse.jpeg",
+    "imgAlt": "The House",
+    "imgFull": "images/pelis/thehouse.jpeg",
+    "titulo": "The House",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/starttrek.jpg",
+    "imgAlt": "Start Trek",
+    "imgFull": "images/pelis/starttrek.jpg",
+    "titulo": "Start Trek",
+    "descripcion": "Resumen no disponible."
+  },
+  {
+    "img": "images/pelis/elequipoa.jpg",
+    "imgAlt": "El equipo A",
+    "imgFull": "images/pelis/elequipoa.jpg",
+    "titulo": "El equipo A",
+    "descripcion": "Resumen no disponible."
+  }
+  
+  ]
+}
+
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const data = JSON.parse(document.getElementById("enlaces-data").textContent);
+  const container = document.getElementById("links-container");
+
+  function crearCard(item) {
+    return `
+      <div class="col-md-3 mb-4">
+        <div class="card h-100">
+          <img src="${item.img}" class="card-img-top" alt="${item.imgAlt}">
+          <div class="card-body text-center">
+            <h5 class="card-title">${item.titulo}</h5>
+            <p class="card-text">${item.descripcion}</p>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function mostrar(tipo) {
+    container.innerHTML = "";
+    if (tipo === "pelis" || tipo === "ambos") {
+      Object.keys(data.pelis).forEach(genero => {
+        container.innerHTML += `<h3 class="mt-4">${genero.toUpperCase()}</h3>`;
+        container.innerHTML += data.pelis[genero].map(p => crearCard(p)).join('');
+      });
+    }
+    if (tipo === "series" || tipo === "ambos") {
+      container.innerHTML += `<h3 class="mt-4">SERIES</h3>`;
+      container.innerHTML += data.series.map(s => crearCard(s)).join('');
+    }
+  }
+
+  // Mostrar todo por defecto
+  mostrar("ambos");
+
+  // Filtros
+  document.getElementById("filtroPelis").addEventListener("click", () => mostrar("pelis"));
+  document.getElementById("filtroSeries").addEventListener("click", () => mostrar("series"));
+  document.getElementById("filtroAmbos").addEventListener("click", () => mostrar("ambos"));
+
+  // Función común para botón mágico
+  function mostrarSorpresa(item) {
+    document.getElementById('imgPeli').src = item.imgFull;
+    document.getElementById('imgPeli').alt = item.imgAlt;
+    document.getElementById('tituloPeli').textContent = item.titulo;
+    document.getElementById('descPeli').textContent = item.descripcion;
+    document.getElementById('resultado').style.display = "block";
+  }
+
+  // Botones mágicos
+  document.getElementById('btnPelis').addEventListener('click', () => {
+    const todasLasPelis = Object.values(data.pelis).flat();
+    const randomPeli = todasLasPelis[Math.floor(Math.random() * todasLasPelis.length)];
+    mostrarSorpresa(randomPeli);
+  });
+
+  document.getElementById('btnSeries').addEventListener('click', () => {
+    const randomSerie = data.series[Math.floor(Math.random() * data.series.length)];
+    mostrarSorpresa(randomSerie);
+  });
+
+  document.getElementById('btnAmbos').addEventListener('click', () => {
+    const todasLasPelis = Object.values(data.pelis).flat();
+    const todoJunto = [...todasLasPelis, ...data.series];
+    const random = todoJunto[Math.floor(Math.random() * todoJunto.length)];
+    mostrarSorpresa(random);
+  });
+});
+</script>
+
+</body>
+</html>
