@@ -35,16 +35,61 @@
         text-align: center;
         margin: 0px auto;
     }
+    .gif-bg {
+        width: 130px;
+        height: 130px;
+        border-radius: 8px;
+        object-fit: cover;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        border: 10px dotted #FABADA;
+    }
+    #gifContainer {
+        position: absolute;
+        left: 0px;
+        top: -28px;
+        width: 100px;
+        height: 100px;
+    }
+    .imgiconos {
+        width: 70px;
+        border-radius: 50%;
+    }
+    .btn-ico_zaragoza {
+        width: 70px;
+        border-radius: 50%;
+        position: fixed;
+        right: 11px;
+        top: 8px;
+        box-shadow: none!important;
+        background-color: transparent;
+        border: 0px;
+        cursor: pointer;
+    }
+    .btn-ico_zaragoza:hover{
+        opacity: 0.7;
+    }    
+    .btn-ico_zaragoza img {
+        max-width: 70px;
+        border-radius: 50%;
+        max-height: 70px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        width: 70px!important;
+        height: 70px!important;
+    }
   </style>
 </head>
 <body>
 <section id="billboard" class="bg-light py-5">
   <div id="listado"></div>
   <div class="container">
+     <a target="_blank" href="https://drive.google.com/file/d/1DzvLLLOpOZc20I-PQZCKC_5a7cX9a7Nm/view?usp=sharing" class="btn-ico_zaragoza">
+        <img class="imgiconos" src="images/icons/realZaragoza.jpg" />
+     </a>
     <div class="row justify-content-center">
       <h1 class="section-title text-center mt-4">Mis Super Pelis y Series</h1>
       <div class="col-md-6 text-center">
         <p>Que tengas un día genial :)</p>
+        Página realizada con el <img src="images/icons/pinCorazon.jpg"  class="imgiconos" />
       </div>
     </div>
 
@@ -53,9 +98,18 @@
     🎬 Botones Mágicos de Pelis y Series
     </div>
    <div class="text-center my-4">
-     <button class="btn-magic" id="btnPelis">🎬 ¡Sorpréndeme con una Peli!</button>
-     <button class="btn-magic" id="btnSeries">📺 ¡Sorpréndeme con una Serie!</button>
-     <button class="btn-magic" id="btnAmbos">🔀 ¡Sorpréndeme con Pelis + Series!</button>
+     <button class="btn-magic" id="btnPelis">
+        <img class="imgiconos" src="images/icons/iconopelis.jpg" />
+        ¡Sorpréndeme con una Peli!
+    </button>
+     <button class="btn-magic" id="btnSeries">
+        <img class="imgiconos" src="images/icons/iconosseries.jpg" />
+         ¡Sorpréndeme con una Serie!
+    </button>
+     <button class="btn-magic" id="btnAmbos">
+        <img class="imgiconos" src="images/icons/iconoambas.jpg" />
+        ¡Sorpréndeme con Pelis + Series!
+    </button>
    </div>
  <div class="text-center my-4">
     Filtrando :)
@@ -68,11 +122,16 @@
    </div>
    
    <!-- Resultado mágico -->
-   <div id="resultado" class="card" style="display:none; text-align: center;background-color: #f0abb3;padding: 20px;border: 7px dotted;margin: 33px;">
-      <img id="imgPeli" src="" alt="">
-      <h5 class="mt-4" id="tituloPeli"></h5>
-      <p id="descPeli"></p>
-   </div>
+    <div id="resultado" class="card" style="display:none!important; text-align: center; background-color: #f0abb3; padding: 20px; border: 7px dotted; margin: 33px; display: flex; align-items: center; justify-content: center;">
+        <div id="gifContainer">
+        </div>
+        <div>
+            <img id="imgPeli" src="" alt="" style="max-width: 215px; display: block; margin-bottom: 10px;">
+            <h5 class="mt-4" id="tituloPeli"></h5>
+            <p id="descPeli"></p>
+        </div>
+    </div>
+
 
     <div class="row" id="links-container">
       <!-- Aquí se insertarán las tarjetas -->
@@ -1353,13 +1412,58 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("filtroAmbos").addEventListener("click", () => mostrar("ambos"));
 
   // Función común para botón mágico
-  function mostrarSorpresa(item) {
-    document.getElementById('imgPeli').src = item.imgFull;
-    document.getElementById('imgPeli').alt = item.imgAlt;
-    document.getElementById('tituloPeli').textContent = item.titulo;
-    document.getElementById('descPeli').textContent = item.descripcion;
-    document.getElementById('resultado').style.display = "block";
-  }
+  function mostrarSorpresa(item, tipo) {
+      
+
+        let gifseleccionado = "";
+
+        if(tipo === "pelis") {
+            gifseleccionado = "images/gifs/panda1.gif"
+            creategif(gifseleccionado);
+        } else if(tipo === "series") {
+            gifseleccionado = "images/gifs/pin1.gif"
+            creategif(gifseleccionado);
+        } else if(tipo === "ambos") {
+            gifseleccionado ="images/gifs/pin2.gif"
+            creategif(gifseleccionado);
+        }
+
+
+        // Mostrar película/serie
+        document.getElementById('imgPeli').src = item.imgFull;
+        document.getElementById('imgPeli').alt = item.imgAlt;
+        document.getElementById('tituloPeli').textContent = item.titulo;
+        document.getElementById('descPeli').textContent = item.descripcion;
+        document.getElementById('resultado').style.display = "flex";
+    }
+    function creategif (gifseleccionado) {
+          const gifContainer = document.getElementById('gifContainer');
+        gifContainer.innerHTML = ""; // Limpiar GIFs anteriores
+console.log("GIF que voy a mostrar:", gifseleccionado);
+        const imgGif = document.createElement("img");
+        imgGif.src = gifseleccionado;
+        imgGif.classList.add("gif-bg");
+        gifContainer.appendChild(imgGif);
+    }
+    // Botones mágicos
+    document.getElementById('btnPelis').addEventListener('click', () => {
+        const todasLasPelis = Object.values(data.pelis).flat();
+        const randomPeli = todasLasPelis[Math.floor(Math.random() * todasLasPelis.length)];
+        mostrarSorpresa(randomPeli, "pelis");
+    });
+
+    document.getElementById('btnSeries').addEventListener('click', () => {
+        const randomSerie = data.series[Math.floor(Math.random() * data.series.length)];
+        mostrarSorpresa(randomSerie, "series");
+    });
+
+    document.getElementById('btnAmbos').addEventListener('click', () => {
+        const todasLasPelis = Object.values(data.pelis).flat();
+        const todoJunto = [...todasLasPelis, ...data.series];
+        const random = todoJunto[Math.floor(Math.random() * todoJunto.length)];
+        mostrarSorpresa(random, "ambos");
+    });
+
 
   // Botones mágicos
   document.getElementById('btnPelis').addEventListener('click', () => {
